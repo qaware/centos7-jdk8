@@ -1,4 +1,4 @@
-FROM centos7
+FROM centos:7
 MAINTAINER QAware OSS <qaware-oss@qaware.de>
 
 ENV JAVA_VERSION 8u77
