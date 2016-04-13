@@ -13,18 +13,41 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 docker {
     url = System.env.DOCKER_HOST ?: 'https://192.168.99.100:2376'
     certPath = file("${System.getProperty('user.home')}/.docker/machine/machines/default")
+
+    registryCredentials {
+        url = 'qaware-oss-docker-registry.bintray.io'
+        username = 'qaware-oss'
+        password = project.hasProperty('bintrayApiKey') ? project.bintrayApiKey : ''
+        email = 'qaware-oss@qaware.de'
+    }
 }
 
 repositories {
     jcenter()
 }
 
+version = '8u77'
+
 import com.bmuschko.gradle.docker.tasks.DockerInfo
 import com.bmuschko.gradle.docker.tasks.DockerVersion
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+task buildDockerImage(type: DockerBuildImage) {
+    inputDir = projectDir
+    noCache = false
+    remove = true
+    tag = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+}
+
+task removeDockerImage(type: DockerRemoveImage) {
+    imageId = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+}
+
+task pushDocker(type: DockerPushImage, dependsOn: buildDockerImage) {
+    imageName = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+}
 
 task dockerInfo(type: DockerInfo) {}
 task dockerVersion(type: DockerVersion) {}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.11'
-}
