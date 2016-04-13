@@ -38,15 +38,23 @@ task buildDockerImage(type: DockerBuildImage) {
     inputDir = projectDir
     noCache = false
     remove = true
-    tag = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+    tag = "$project.name:$version"
 }
 
 task removeDockerImage(type: DockerRemoveImage) {
-    imageId = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+    imageId = "$project.name:$version"
 }
 
-task pushDocker(type: DockerPushImage, dependsOn: buildDockerImage) {
+task pushDockerImage(type: DockerPushImage) {
     imageName = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
+}
+
+task pushDockerLatest(type: DockerPushImage) {
+    imageName = "qaware-oss-docker-registry.bintray.io/base/$project.name"
+}
+
+task pushDockerImages() {
+    dependsOn pushDockerImage, pushDockerLatest
 }
 
 task dockerInfo(type: DockerInfo) {}
