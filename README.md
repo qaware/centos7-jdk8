@@ -35,16 +35,14 @@ Use the Docker client push command to upload and publish your images (please use
 Docker v1.6 and above):
 ```shell
 docker push qaware-oss-docker-registry.bintray.io/base/centos7-jdk8:<VERSION>
-docker push qaware-oss-docker-registry.bintray.io/base/centos7-jdk8
 ```
 `<VERSION>` - Should be the actual Java version, like 8u77. When not specified
 "latest" will be used as the Bintray version name.
 
 Alternatively you can also use Gradle to upload the Docker images to Bintray.
 ```shell
-$ ./gradlew pushDockerImages -PbintrayApiKey=<<INSERT API KEY>>
+$ ./gradlew pushDockerImage -PbintrayApiKey=<<INSERT API KEY>>
 ```
-
 
 ## Downloading image from Bintray
 

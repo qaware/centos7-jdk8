@@ -49,13 +49,5 @@ task pushDockerImage(type: DockerPushImage) {
     imageName = "qaware-oss-docker-registry.bintray.io/base/$project.name:$version"
 }
 
-task pushDockerLatest(type: DockerPushImage) {
-    imageName = "qaware-oss-docker-registry.bintray.io/base/$project.name"
-}
-
-task pushDockerImages() {
-    dependsOn pushDockerImage, pushDockerLatest
-}
-
 task dockerInfo(type: DockerInfo) {}
 task dockerVersion(type: DockerVersion) {}
