@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/qaware-oss/registry/base%3Acentos7-jdk8/images/download.svg) ](https://bintray.com/qaware-oss/registry/base%3Acentos7-jdk8/_latestVersion)
+
 # CentOS7 with JDK 8
 
 This repository contains the `Dockerfile` for the `centos7-jdk8` image. It is
